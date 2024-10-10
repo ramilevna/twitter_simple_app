@@ -1,0 +1,22 @@
+services:
+  user-service:
+    build: ./user-service
+    ports:
+      - "5001:5001"
+    restart: always  # Automatically restart the service on failure
+
+  message-service:
+    build: ./message-service
+    ports:
+      - "5002:5002"
+    depends_on:
+      - user-service
+    restart: always  # Automatically restart the service on failure
+
+  like-service:
+    build: ./like-service
+    ports:
+      - "5003:5003"
+    depends_on:
+      - message-service
+    restart: always  # Automatically restart the service on failure
